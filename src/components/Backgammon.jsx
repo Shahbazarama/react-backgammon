@@ -174,70 +174,64 @@ class Backgammon extends React.Component {
   confirmMove = (event, spaceID) => {
     event.stopPropagation()
 
-    let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)
-
-  confirmMove = spaceID => {
-    let attemptedSpace = this.state.gameState.filter(
-      space => space.id === spaceID
-    )[0];
+    let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
 
     if (
       (attemptedSpace.color == this.state.whosTurn ||
         attemptedSpace.color == 0) &&
-      this.state.currentMove !== 0
-    ) {
-      this.setState(prevState => ({
-        gameState: prevState.gameState.map(space => {
-          if (space.id == this.state.currentMove) {
-            return {
-              ...space,
-              count: space.count - 1
-            };
-          } else if (space.id == attemptedSpace.id) {
-            return {
-              ...space,
-              count: space.count + 1,
-              color: this.state.whosTurn
-            };
-          } else {
-            return {
-              ...space
-            };
-          }
-        }),
+        this.state.currentMove !== 0
+      ) {
+        this.setState(prevState => ({
+          gameState: prevState.gameState.map(space => {
+            if (space.id == this.state.currentMove) {
+              return {
+                ...space,
+                count: space.count - 1
+              };
+            } else if (space.id == attemptedSpace.id) {
+              return {
+                ...space,
+                count: space.count + 1,
+                color: this.state.whosTurn
+              };
+            } else {
+              return {
+                ...space
+              };
+            }
+          }),
+          currentMove: 0
+        }));
+      } else {
+        // do this
+        console.log("else");
+      }
+    };
 
-        currentMove: 0
-      }));
-    } else {
-      // do this
-      console.log("else");
-    }
-  };
-
-  render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-10">
-            <Gameboard
-              gameState={this.state.gameState}
-              makeMove={this.makeMove}
-              confirmMove={this.confirmMove}
-              whosTurn={this.state.whosTurn}
-            />
-          </div>
-          <div className="col-2">
-            <Dice
-              diceValues={this.state.diceValues}
-              rollDice={this.rollDice}
-              whosTurn={this.state.whosTurn}
-            />
-            <Jail />
+    render() {
+      return (
+        <div className="container">
+          <div className="row">
+            <div className="col-10">
+              <Gameboard
+                gameState={this.state.gameState}
+                makeMove={this.makeMove}
+                confirmMove={this.confirmMove}
+                whosTurn={this.state.whosTurn}
+              />
+            </div>
+            <div className="col-2">
+              <Dice
+                diceValues={this.state.diceValues}
+                rollDice={this.rollDice}
+                whosTurn={this.state.whosTurn}
+              />
+              <Jail />
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
-}
 
-export default Backgammon;
+  export default Backgammon;

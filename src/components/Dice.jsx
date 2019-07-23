@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function Dice({ diceValues, rollDice, whosTurn }) {
-  console.log(diceValues)
   return (
     <div>
       <div>

@@ -8,7 +8,9 @@ class Backgammon extends React.Component {
     gameState: [],
     diceValues: [],
     whosTurn: 1,
-    currentMove: 0
+    currentMove: 0,
+    blueJail: 0,
+    redJail: 0
   };
 
   componentDidMount = async () => {
@@ -174,41 +176,73 @@ class Backgammon extends React.Component {
   confirmMove = (event, spaceID) => {
     event.stopPropagation()
 
-    let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
-    if (
-      (attemptedSpace.color == this.state.whosTurn ||
-        attemptedSpace.color == 0) &&
-      this.state.currentMove !== 0 && !(this.state.currentMove === attemptedSpace.id)
-    ) {
-      this.setState(prevState => ({
-        gameState: prevState.gameState.map(space => {
-          console.log(`space.id = ${space.id}, this.state.currentMove= ${this.state.currentMove}, attemptedSpace=${attemptedSpace.id}`)
-          if (space.id == this.state.currentMove) {
-            return {
-              ...space,
-              count: space.count - 1
-            };
-          } else if (space.id == attemptedSpace.id) {
-            return {
-              ...space,
-              count: space.count + 1,
-              color: this.state.whosTurn
-            };
-          } else {
-            return {
-              ...space
-            };
-          }
-        }),
-        currentMove: 0
-      }));
-    } else {
-      // do this
-      this.setState({
-        currentMove: 0
-      })
-      console.log("else");
+    if(this.state.currentMove !== 0){
+      // has clicked a tile first
+
+      // gather new space data
+      let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
+      if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color == 0) && !(this.state.currentMove === attemptedSpace.id)) {
+        // has selected a space with same color or empty, and it is not the same space as the original tile
+        this.setState(prevState => ({
+          gameState: prevState.gameState.map(space => {
+            if (space.id == this.state.currentMove) {
+              // remove tile from current location
+              return {
+                ...space,
+                count: space.count - 1,
+                color: (space.count == 1 ? 0 : space.color)
+              };
+            } else if (space.id == attemptedSpace.id) {
+              // add one tile to new location
+              return {
+                ...space,
+                count: space.count + 1,
+                color: this.state.whosTurn
+              };
+            } else {
+              // return all other tiles not affected
+              return {
+                ...space
+              };
+            }
+          }),
+          currentMove: 0
+        }));
+      } else if (attemptedSpace.color !== this.state.whosTurn){
+        if(attemptedSpace.count === 1){
+          // send enemy to jail
+          this.setState(prevState => ({
+            gameState: prevState.gameState.map(space => {
+              if (space.id == this.state.currentMove) {
+                // remove tile from current location
+                return {
+                  ...space,
+                  count: space.count - 1,
+                  color: (space.count == 1 ? 0 : space.color)
+                };
+              } else if (space.id == attemptedSpace.id) {
+                // add one tile to new location
+                return {
+                  ...space,
+                  color: this.state.whosTurn
+                };
+              } else {
+                // return all other tiles not affected
+                return {
+                  ...space
+                };
+              }
+            }),
+            currentMove: 0,
+            blueJail: (attemptedSpace.color == 1 ? prevState.blueJail + 1 : prevState.blueJail),
+            redJail: (attemptedSpace.color == 2 ? prevState.redJail + 1 : prevState.redJail)
+          }));
+        }
+
+        console.log("else");
+      }
     }
+
   };
 
   render() {
@@ -229,7 +263,10 @@ class Backgammon extends React.Component {
               rollDice={this.rollDice}
               whosTurn={this.state.whosTurn}
             />
-            <Jail />
+            <Jail
+              blueJail={this.state.blueJail}
+              redJail={this.state.redJail}
+              />
           </div>
         </div>
       </div>

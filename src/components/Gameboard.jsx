@@ -16,83 +16,107 @@ let bottomOfGameboardCSS = {
 
 export default function Gameboard() {
   return (
+    <div>
     <div className="container">
       <div className="row">
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
+        <div className="col-9">
+          <div className="row">
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1" style={topOfGameboardCSS}>
+              hi
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
+              hi
+            </div>
+          </div>
         </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
+        <div className="col-3">
+          <div className="container float-right">
+            <div>
+              dice one
+            </div>
+            <div>
+              dice two
+            </div>
+            <button>
+              roll!
+            </button>
+            <div>
+              jail cell
+            </div>
+          </div>
         </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1" style={topOfGameboardCSS}>
-          hi
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
-        <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-          hi
-        </div>
+
       </div>
     </div>
+
+  </div>
   )
 }

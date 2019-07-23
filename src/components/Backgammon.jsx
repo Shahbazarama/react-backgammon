@@ -172,11 +172,10 @@ class Backgammon extends React.Component {
   }
 
   confirmMove = (spaceID) => {
-    console.log(spaceID)
     let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)
-    console.log(attemptedSpace[0].color)
+
     if((attemptedSpace[0].color == this.state.whosTurn || attemptedSpace[0].color == 0) && this.state.currentMove !== 0){
-      console.log('hit')
+
       this.setState(prevState => ({
         gameState: prevState.gameState.map(space => {
           if(space.id == this.state.currentMove){
@@ -196,8 +195,12 @@ class Backgammon extends React.Component {
             }
           }
         }),
+
         currentMove: 0
       }))
+    } else {
+      // do this
+      console.log('else')
     }
   }
 

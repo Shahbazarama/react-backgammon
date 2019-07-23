@@ -176,7 +176,7 @@ class Backgammon extends React.Component {
   confirmMove = (event, spaceID) => {
     event.stopPropagation()
 
-    if(this.state.currentMove !== 0){
+    if (this.state.currentMove !== 0) {
       // has clicked a tile first
 
       // gather new space data
@@ -208,8 +208,8 @@ class Backgammon extends React.Component {
           }),
           currentMove: 0
         }));
-      } else if (attemptedSpace.color !== this.state.whosTurn){
-        if(attemptedSpace.count === 1){
+      } else if (attemptedSpace.color !== this.state.whosTurn) {
+        if (attemptedSpace.count === 1) {
           // send enemy to jail
           this.setState(prevState => ({
             gameState: prevState.gameState.map(space => {
@@ -241,6 +241,31 @@ class Backgammon extends React.Component {
 
         console.log("else");
       }
+    } else {//tile is in jail
+      let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
+      if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color == 0)) {
+        // has selected a space with same color or empty, and it is not the same space as the original tile
+        this.setState(prevState => ({
+          redJail: prevState.whosTurn === 1 ? prevState.redJail : prevState.redJail - 1,
+          blueJail: prevState.whosTurn === 2 ? prevState.blueJail : prevState.blueJail - 1,
+          gameState: prevState.gameState.map(space => {
+            if (space.id == attemptedSpace.id) {
+              // add one tile to new location
+              return {
+                ...space,
+                count: space.count + 1,
+                color: this.state.whosTurn
+              };
+            } else {
+              // return all other tiles not affected
+              return {
+                ...space
+              };
+            }
+          }),
+          currentMove: 0
+        }));
+      }
     }
 
   };
@@ -266,7 +291,9 @@ class Backgammon extends React.Component {
             <Jail
               blueJail={this.state.blueJail}
               redJail={this.state.redJail}
-              />
+              whosTurn={this.state.whosTurn}
+              makeMove={this.makeMove}
+            />
           </div>
         </div>
       </div>

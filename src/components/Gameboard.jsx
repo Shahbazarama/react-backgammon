@@ -1,96 +1,45 @@
-import React from 'react'
+import React from "react";
 let topOfGameboardCSS = {
-  border: 'thick solid #0000FF',
-  borderRadius: '0 0 20px 20px',
-  height: '50vh'
-}
+  border: "thick solid #0000FF",
+  borderRadius: "0 0 20px 20px",
+  height: "50vh"
+};
 
 let bottomOfGameboardCSS = {
-  border: 'thick solid #00ffff',
-  borderRadius: '20px 20px 0 0',
-  height: '50vh'
-
-}
+  border: "thick solid #00ffff",
+  borderWidth: "0 38.5px 300px 38.5px",
+  height: "50vh"
+};
 
 export default function Gameboard() {
   return (
     <>
+      {gameState.map(space => {
+        if (space.id > 12) {
           <div className="row">
+            return (
             <div className="col-1" style={topOfGameboardCSS}>
-              hi
+              {[...Array[space.count]].map(x => {
+                "hi";
+              })}
             </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1" style={topOfGameboardCSS}>
-              hi
-            </div>
-          </div>
+            );
+          </div>;
+        } else {
           <div className="row">
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
+            return (
+            <div
+              className="col-1 d-flex align-items-end"
+              style={bottomOfGameboardCSS}
+            >
+              {[...Array[space.count]].map(x => {
+                "hi";
+              })}
             </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-            <div className="col-1 d-flex align-items-end" style={bottomOfGameboardCSS}>
-              hi
-            </div>
-          </div>
-        </>
-  )
+            )
+          </div>;
+        }
+      })}
+    </>
+  );
 }

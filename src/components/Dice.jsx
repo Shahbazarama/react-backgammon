@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Dice({ diceValues, rollDice }) {
+export default function Dice({ diceValues, rollDice, whosTurn }) {
   console.log(diceValues)
   return (
     <div>
@@ -14,6 +14,8 @@ export default function Dice({ diceValues, rollDice }) {
       <button onClick={() => rollDice()}>
         roll!
       </button>
+
+      <h2>{whosTurn === 1 ? "Blue's Turn" : "Red's Turn"}</h2>
     </div>
   )
 

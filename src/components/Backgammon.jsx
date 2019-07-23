@@ -7,7 +7,9 @@ class Backgammon extends React.Component {
 
   state = {
     gameState: [],
-    diceValues: []
+    diceValues: [],
+    whosTurn: 1,
+    currentMove: 0
   }
 
   componentDidMount = async() => {
@@ -136,16 +138,68 @@ class Backgammon extends React.Component {
       ],
       diceValues: [1,1]
     })
+    this.rollDice()
+    this.startOfGame()
   }
 
   rollDice = () => {
     let rollValue1 = Math.floor( Math.random() * 6 ) + 1
     let rollValue2 = Math.floor( Math.random() * 6 ) + 1
+    this.setState(prevState => ({
+      diceValues: [rollValue1, rollValue2],
+      whosTurn: prevState.whosTurn === 1 ? 2 : 1,
+      currentMove: 0
+    }))
+  }
+
+  startOfGame = () => {
+    if(Math.floor( Math.random() * 2 ) + 1 === 1){
+      this.setState({
+        whosTurn: 1
+      })
+    } else {
+      this.setState({
+        whosTurn: 2
+      })
+    }
+  }
+
+  makeMove = (spaceID) => {
+    console.log(spaceID)
     this.setState({
-      diceValues: [rollValue1, rollValue2]
+      currentMove: spaceID
     })
   }
 
+  confirmMove = (spaceID) => {
+    console.log(spaceID)
+    let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)
+    console.log(attemptedSpace[0].color)
+    if((attemptedSpace[0].color == this.state.whosTurn || attemptedSpace[0].color == 0) && this.state.currentMove !== 0){
+      console.log('hit')
+      this.setState(prevState => ({
+        gameState: prevState.gameState.map(space => {
+          if(space.id == this.state.currentMove){
+            return {
+              ...space,
+              count: space.count - 1
+            }
+          } else if (space.id == attemptedSpace[0].id){
+            return {
+              ...space,
+              count: space.count + 1,
+              color: this.state.whosTurn
+            }
+          } else {
+            return {
+              ...space
+            }
+          }
+        }),
+        currentMove: 0
+      }))
+    }
+  }
 
 
   render() {
@@ -153,10 +207,19 @@ class Backgammon extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-10">
-            <Gameboard gameState={this.state.gameState}/>
+            <Gameboard
+              gameState={this.state.gameState}
+              makeMove={this.makeMove}
+              confirmMove={this.confirmMove}
+              whosTurn={this.state.whosTurn}
+            />
           </div>
           <div className="col-2">
-            <Dice diceValues={this.state.diceValues} rollDice={this.rollDice}/>
+            <Dice
+              diceValues={this.state.diceValues}
+              rollDice={this.rollDice}
+              whosTurn={this.state.whosTurn}
+            />
             <Jail />
           </div>
         </div>

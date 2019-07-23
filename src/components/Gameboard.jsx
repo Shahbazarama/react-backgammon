@@ -26,17 +26,25 @@ let bottomOfGameboardCSSAlt = {
   height: "45vh"
 };
 
-export default function Gameboard({ gameState }) {
+let moveablePieceCSS = {
+  border: 'thick dotted #ffffff'
+}
+
+export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }) {
   return (
     <>
     <div className="row">
       {gameState.map(space => {
         if (space.id > 12) {
           return (
-            <div className="col-1 d-flex flex-column" style={space.id < 19 ? topOfGameboardCSS : topOfGameboardCSSAlt}>
-              {[...Array(space.count)].map(x => {
+            <div
+              className="col-1 d-flex flex-column"
+              style={space.id < 19 ? topOfGameboardCSS : topOfGameboardCSSAlt}
+              onClick={() => confirmMove(space.id)}
+              >
+              {[...Array(space.count)].map((x,index) => {
                 return(
-                  <button className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                  <button disabled={whosTurn === space.color ? false : true} onClick={() => makeMove(space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
                     Ω<br />
                   </button>
                 )
@@ -52,10 +60,13 @@ export default function Gameboard({ gameState }) {
         if (space.id < 13){
           return (
             <div
-              className="col-1 d-flex flex-column-reverse" style={space.id > 6 ? bottomOfGameboardCSS : bottomOfGameboardCSSAlt}>
-              {[...Array(space.count)].map(x => {
+              className="col-1 d-flex flex-column-reverse"
+              style={space.id > 6 ? bottomOfGameboardCSS : bottomOfGameboardCSSAlt}
+              onClick={() => confirmMove(space.id)}
+              >
+              {[...Array(space.count)].map((x,index) => {
                 return(
-                  <button className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                  <button disabled={whosTurn === space.color ? false : true} onClick={() => makeMove(space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
                     Ω<br />
                   </button>
                 )

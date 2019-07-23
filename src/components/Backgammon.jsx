@@ -241,9 +241,21 @@ class Backgammon extends React.Component {
 
         console.log("else");
       }
-    } else {//tile is in jail
+    } else {
+      //tile is in jail
+      let flag = false
+      if(this.state.whosTurn == 1){
+        if(this.state.blueJail > 0){
+          flag = true
+        }
+      } else if (this.state.whosTurn == 2){
+        if(this.state.redJail > 0){
+          flag = true
+        }
+      }
+
       let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
-      if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color == 0)) {
+      if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color == 0) && flag) {
         // has selected a space with same color or empty, and it is not the same space as the original tile
         this.setState(prevState => ({
           redJail: prevState.whosTurn === 1 ? prevState.redJail : prevState.redJail - 1,

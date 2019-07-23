@@ -10,7 +10,7 @@ export default function Jail({ blueJail, redJail, whosTurn, makeMove }) {
             blueJail
             {[...Array(blueJail)].map(() => {
               return (
-                <button disabled={whosTurn === 1 ? true : false} onClick={(e) => makeMove(e, 0)} className="btn btn-sm btn-primary">
+                <button disabled={whosTurn === 2 ? true : false} onClick={(e) => makeMove(e, 0)} className="btn btn-sm btn-primary">
                   Ω<br />
                 </button>
               )
@@ -21,7 +21,7 @@ export default function Jail({ blueJail, redJail, whosTurn, makeMove }) {
             redJail
             {[...Array(redJail)].map(() => {
               return (
-                <button disabled={whosTurn === 2 ? true : false} onClick={(e) => makeMove(e, 0)} className="btn btn-sm btn-danger">
+                <button disabled={whosTurn === 1 ? true : false} onClick={(e) => makeMove(e, 0)} className="btn btn-sm btn-danger">
                   Ω<br />
                 </button>
               )

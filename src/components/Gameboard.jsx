@@ -40,11 +40,11 @@ export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }
             <div
               className="col-1 d-flex flex-column"
               style={space.id < 19 ? topOfGameboardCSS : topOfGameboardCSSAlt}
-              onClick={() => confirmMove(space.id)}
+              onClick={(e) => confirmMove(e, space.id)}
               >
               {[...Array(space.count)].map((x,index) => {
                 return(
-                  <button disabled={whosTurn === space.color ? false : true} onClick={() => makeMove(space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                  <button disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e,space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
                     Ω<br />
                   </button>
                 )
@@ -62,11 +62,11 @@ export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }
             <div
               className="col-1 d-flex flex-column-reverse"
               style={space.id > 6 ? bottomOfGameboardCSS : bottomOfGameboardCSSAlt}
-              onClick={() => confirmMove(space.id)}
+              onClick={(e) => confirmMove(e, space.id)}
               >
               {[...Array(space.count)].map((x,index) => {
                 return(
-                  <button disabled={whosTurn === space.color ? false : true} onClick={() => makeMove(space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                  <button disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
                     Ω<br />
                   </button>
                 )

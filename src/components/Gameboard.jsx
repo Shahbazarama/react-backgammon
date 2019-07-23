@@ -11,33 +11,35 @@ let bottomOfGameboardCSS = {
   height: "50vh"
 };
 
-export default function Gameboard() {
+export default function Gameboard({ gameState }) {
   return (
     <>
       {gameState.map(space => {
         if (space.id > 12) {
-          <div className="row">
-            return (
-            <div className="col-1" style={topOfGameboardCSS}>
-              {[...Array[space.count]].map(x => {
-                "hi";
-              })}
+          return (
+            <div className="row">
+              return (
+              <div className="col-1" style={topOfGameboardCSS}>
+                {[...Array(space.count)].map(x => {
+                  return "hi";
+                })}
+              </div>
+              );
             </div>
-            );
-          </div>;
+          );
         } else {
-          <div className="row">
-            return (
-            <div
-              className="col-1 d-flex align-items-end"
-              style={bottomOfGameboardCSS}
-            >
-              {[...Array[space.count]].map(x => {
-                "hi";
-              })}
+          return (
+            <div className="row">
+              <div
+                className="col-1 d-flex align-items-end"
+                style={bottomOfGameboardCSS}
+              >
+                {[...Array(space.count)].map(x => {
+                  return "hi";
+                })}
+              </div>
             </div>
-            )
-          </div>;
+          );
         }
       })}
     </>

@@ -1,19 +1,20 @@
 import React from 'react'
 
-export default function Dice() {
-
+export default function Dice({ diceValues, rollDice }) {
+  console.log(diceValues)
   return (
     <div>
-    <div>
-      dice one
+      <div>
+        {diceValues.map(roll => {
+          return (
+            <h1>{roll}</h1>
+          )
+        })}
+      </div>
+      <button onClick={() => rollDice()}>
+        roll!
+      </button>
     </div>
-    <div>
-      dice two
-    </div>
-    <button>
-      roll!
-    </button>
-  </div>
   )
 
 

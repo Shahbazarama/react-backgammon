@@ -21,7 +21,7 @@ export default function Gameboard({ gameState }) {
             <div className="col-1" style={topOfGameboardCSS}>
               {[...Array(space.count)].map(x => {
                 return(
-                  <button className={space.color == 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                  <button className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
                     piece
                   </button>
                 )
@@ -39,7 +39,7 @@ export default function Gameboard({ gameState }) {
               className="col-1 d-flex flex-column-reverse align-items-end" style={bottomOfGameboardCSS}>
               {[...Array(space.count)].map(x => {
                 return(
-                  <button className={space.color == 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                  <button className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
                     piece
                   </button>
                 )

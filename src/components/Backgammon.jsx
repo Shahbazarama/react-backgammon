@@ -6,7 +6,8 @@ import Jail from './Jail'
 class Backgammon extends React.Component {
 
   state = {
-    gameState: []
+    gameState: [],
+    diceValues: []
   }
 
   componentDidMount = async() => {
@@ -132,9 +133,20 @@ class Backgammon extends React.Component {
           count: 2,
           color: 2
         }
-      ]
+      ],
+      diceValues: [1,1]
     })
   }
+
+  rollDice = () => {
+    let rollValue1 = Math.floor( Math.random() * 6 ) + 1
+    let rollValue2 = Math.floor( Math.random() * 6 ) + 1
+    this.setState({
+      diceValues: [rollValue1, rollValue2]
+    })
+  }
+
+
 
   render() {
     return (
@@ -144,7 +156,7 @@ class Backgammon extends React.Component {
             <Gameboard gameState={this.state.gameState}/>
           </div>
           <div className="col-3">
-            <Dice />
+            <Dice diceValues={this.state.diceValues} rollDice={this.rollDice}/>
             <Jail />
           </div>
         </div>

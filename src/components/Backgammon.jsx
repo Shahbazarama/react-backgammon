@@ -1,18 +1,17 @@
-import React from 'react'
-import Gameboard from './Gameboard'
-import Dice from './Dice'
-import Jail from './Jail'
+import React from "react";
+import Gameboard from "./Gameboard";
+import Dice from "./Dice";
+import Jail from "./Jail";
 
 class Backgammon extends React.Component {
-
   state = {
     gameState: [],
     diceValues: [],
     whosTurn: 1,
     currentMove: 0
-  }
+  };
 
-  componentDidMount = async() => {
+  componentDidMount = async () => {
     this.setState({
       gameState: [
         {
@@ -136,33 +135,33 @@ class Backgammon extends React.Component {
           color: 2
         }
       ],
-      diceValues: [1,1]
-    })
-    this.rollDice()
-    this.startOfGame()
-  }
+      diceValues: [1, 1]
+    });
+    this.rollDice();
+    this.startOfGame();
+  };
 
   rollDice = () => {
-    let rollValue1 = Math.floor( Math.random() * 6 ) + 1
-    let rollValue2 = Math.floor( Math.random() * 6 ) + 1
+    let rollValue1 = Math.floor(Math.random() * 6) + 1;
+    let rollValue2 = Math.floor(Math.random() * 6) + 1;
     this.setState(prevState => ({
       diceValues: [rollValue1, rollValue2],
       whosTurn: prevState.whosTurn === 1 ? 2 : 1,
       currentMove: 0
-    }))
-  }
+    }));
+  };
 
   startOfGame = () => {
-    if(Math.floor( Math.random() * 2 ) + 1 === 1){
+    if (Math.floor(Math.random() * 2) + 1 === 1) {
       this.setState({
         whosTurn: 1
-      })
+      });
     } else {
       this.setState({
         whosTurn: 2
-      })
+      });
     }
-  }
+  };
 
   makeMove = (event, spaceID) => {
     event.stopPropagation()
@@ -177,36 +176,43 @@ class Backgammon extends React.Component {
 
     let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)
 
-    if((attemptedSpace[0].color == this.state.whosTurn || attemptedSpace[0].color == 0) && this.state.currentMove !== 0){
+  confirmMove = spaceID => {
+    let attemptedSpace = this.state.gameState.filter(
+      space => space.id === spaceID
+    )[0];
 
+    if (
+      (attemptedSpace.color == this.state.whosTurn ||
+        attemptedSpace.color == 0) &&
+      this.state.currentMove !== 0
+    ) {
       this.setState(prevState => ({
         gameState: prevState.gameState.map(space => {
-          if(space.id == this.state.currentMove){
+          if (space.id == this.state.currentMove) {
             return {
               ...space,
               count: space.count - 1
-            }
-          } else if (space.id == attemptedSpace[0].id){
+            };
+          } else if (space.id == attemptedSpace.id) {
             return {
               ...space,
               count: space.count + 1,
               color: this.state.whosTurn
-            }
+            };
           } else {
             return {
               ...space
-            }
+            };
           }
         }),
 
         currentMove: 0
-      }))
+      }));
     } else {
       // do this
-      console.log('else')
+      console.log("else");
     }
-  }
-
+  };
 
   render() {
     return (
@@ -230,7 +236,7 @@ class Backgammon extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

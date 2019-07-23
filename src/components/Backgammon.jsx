@@ -152,10 +152,10 @@ class Backgammon extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-9">
+          <div className="col-10">
             <Gameboard gameState={this.state.gameState}/>
           </div>
-          <div className="col-3">
+          <div className="col-2">
             <Dice diceValues={this.state.diceValues} rollDice={this.rollDice}/>
             <Jail />
           </div>

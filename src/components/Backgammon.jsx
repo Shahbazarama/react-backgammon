@@ -10,7 +10,9 @@ class Backgammon extends React.Component {
     whosTurn: 1,
     currentMove: 0,
     blueJail: 0,
-    redJail: 0
+    redJail: 0,
+    blueBase: 0,
+    redBase: 0
   };
 
   componentDidMount = async () => {
@@ -182,6 +184,9 @@ class Backgammon extends React.Component {
       // gather new space data
       let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
       if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color == 0) && !(this.state.currentMove === attemptedSpace.id)) {
+        // if(attemptDiceMove(attemptedSpace)){
+        //
+        // }
         // has selected a space with same color or empty, and it is not the same space as the original tile
         this.setState(prevState => ({
           gameState: prevState.gameState.map(space => {
@@ -221,7 +226,7 @@ class Backgammon extends React.Component {
                   color: (space.count == 1 ? 0 : space.color)
                 };
               } else if (space.id == attemptedSpace.id) {
-                // add one tile to new location
+                // other piece is sent to jail, just replace single tile color
                 return {
                   ...space,
                   color: this.state.whosTurn
@@ -279,8 +284,46 @@ class Backgammon extends React.Component {
         }));
       }
     }
+  }; //confirm move
 
-  };
+  handleBase = (spaceID) => {
+    if (this.state.currentMove !== 0) {
+      // has clicked a tile first
+      this.setState(prevState => ({
+        gameState: prevState.gameState.map(space => {
+          if (space.id == this.state.currentMove) {
+            // remove tile from current location
+            return {
+              ...space,
+              count: space.count - 1,
+              color: (space.count == 1 ? 0 : space.color)
+            }
+          } else {
+            // return all other tiles not affected
+            return {
+              ...space
+            }
+          }
+        }),
+        currentMove: 0,
+        blueBase: (this.state.whosTurn == 1 ? prevState.blueBase + 1 : prevState.blueBase),
+        redBase: (this.state.whosTurn == 2 ? prevState.redBase + 1 : prevState.redBase)
+      }), () => {
+        this.checkVictory()
+      });
+    }
+
+  }
+
+  checkVictory = () => {
+    if(this.state.blueBase == 15){
+      alert("Blue wins!")
+      // blue(1) wins
+    } else if (this.state.redBase == 15){
+      alert("Red wins!")
+      // red(2) wins
+    }
+  }
 
   render() {
     return (
@@ -306,6 +349,15 @@ class Backgammon extends React.Component {
               whosTurn={this.state.whosTurn}
               makeMove={this.makeMove}
             />
+            <div>
+              <button disabled={this.state.whosTurn === 2 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-primary">Blue Base</button>
+            </div>
+
+            <div>
+              <button disabled={this.state.whosTurn === 1 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-danger">Red Base</button>
+            </div>
+
+
           </div>
         </div>
       </div>

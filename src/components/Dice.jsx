@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 export default function Dice({ diceValues, rollDice, whosTurn }) {
   let diceArray = []
   for (let value in diceValues) {
@@ -10,6 +11,9 @@ export default function Dice({ diceValues, rollDice, whosTurn }) {
   return (
     <div>
       <div>
+        <i className="fas fa-camera fa-lg"></i>
+
+
         {diceArray.map(roll => {
           return (
             <h1>{roll}</h1>

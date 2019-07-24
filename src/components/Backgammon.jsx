@@ -596,7 +596,6 @@ class Backgammon extends React.Component {
               <button disabled={this.state.whosTurn === 1 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-danger">Red Base</button>
             </div>
 
-
           </div>
         </div>
       </div>

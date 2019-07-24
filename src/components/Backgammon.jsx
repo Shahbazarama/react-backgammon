@@ -15,130 +15,130 @@ class Backgammon extends React.Component {
     redBase: 0,
     dice: {}
   };
-/*
-gameState: [
-  {
-    id: 1,
-    count: 2,
-    color: 1
-  },
-  {
-    id: 2,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 3,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 4,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 5,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 6,
-    count: 5,
-    color: 2
-  },
-  {
-    id: 7,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 8,
-    count: 3,
-    color: 2
-  },
-  {
-    id: 9,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 10,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 11,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 12,
-    count: 5,
-    color: 1
-  },
-  {
-    id: 13,
-    count: 5,
-    color: 2
-  },
-  {
-    id: 14,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 15,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 16,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 17,
-    count: 3,
-    color: 1
-  },
-  {
-    id: 18,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 19,
-    count: 5,
-    color: 1
-  },
-  {
-    id: 20,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 21,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 22,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 23,
-    count: 0,
-    color: 0
-  },
-  {
-    id: 24,
-    count: 2,
-    color: 2
-  }
-]
-*/
+  /*
+  gameState: [
+    {
+      id: 1,
+      count: 2,
+      color: 1
+    },
+    {
+      id: 2,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 3,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 4,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 5,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 6,
+      count: 5,
+      color: 2
+    },
+    {
+      id: 7,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 8,
+      count: 3,
+      color: 2
+    },
+    {
+      id: 9,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 10,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 11,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 12,
+      count: 5,
+      color: 1
+    },
+    {
+      id: 13,
+      count: 5,
+      color: 2
+    },
+    {
+      id: 14,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 15,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 16,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 17,
+      count: 3,
+      color: 1
+    },
+    {
+      id: 18,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 19,
+      count: 5,
+      color: 1
+    },
+    {
+      id: 20,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 21,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 22,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 23,
+      count: 0,
+      color: 0
+    },
+    {
+      id: 24,
+      count: 2,
+      color: 2
+    }
+  ]
+  */
   componentDidMount = async () => {
     this.setState({
       gameState: [
@@ -277,7 +277,7 @@ gameState: [
       whosTurn: prevState.whosTurn === 1 ? 2 : 1,
       currentMove: 0,
     }));
-    if(rollValue1 === rollValue2){
+    if (rollValue1 === rollValue2) {
       this.setState({
         dice: {
           [rollValue1]: 4
@@ -307,8 +307,8 @@ gameState: [
 
   makeMove = (event, spaceID) => {
     event.stopPropagation()
-    if(this.state.whosTurn === 1) {
-      if(this.state.blueJail > 0){
+    if (this.state.whosTurn === 1) {
+      if (this.state.blueJail > 0) {
         this.setState({
           currentMove: 0
         })
@@ -318,7 +318,7 @@ gameState: [
         })
       }
     } else if (this.state.whosTurn === 2) {
-      if(this.state.redJail > 0){
+      if (this.state.redJail > 0) {
         this.setState({
           currentMove: 0
         })
@@ -420,7 +420,7 @@ gameState: [
       let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
       if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color === 0) && flag) {
         // tile is attempting to leave jail because jail flag is true
-        if(this.attemptDiceMove(attemptedSpace.id, (this.state.whosTurn === 1 ? 0 : 25))){
+        if (this.attemptDiceMove(attemptedSpace.id, (this.state.whosTurn === 1 ? 0 : 25))) {
 
           this.setState(prevState => ({
             redJail: prevState.whosTurn === 1 ? prevState.redJail : prevState.redJail - 1,
@@ -516,25 +516,62 @@ gameState: [
       }
     }
   }
+
+  attemptDiceMoveToBase = () => {
+    currentSpaceID = this.state.currentMove;
+    if (this.state.whosTurn === 1) {
+      let distance = 25 - currentSpaceID;
+      if (this.state.dice[distance] > 0) {
+        //checks if the distance between spaces is in the dice values we have in state
+        this.setState(prevState => ({
+          dice: {
+            ...prevState.dice,
+            [distance]: prevState.dice[distance] - 1
+          }
+        }))
+        return true
+      }
+      else {
+        return false
+      }
+    } else if (this.state.whosTurn === 2) {
+      ///red, moves with decreasing space
+      let distance = currentSpaceID - attemptedSpaceID;
+      console.log(distance)
+      if (this.state.dice[distance] > 0) {
+        //checks if the distance between spaces is in the dice values we have in state
+        this.setState(prevState => ({
+          dice: {
+            ...prevState.dice,
+            [distance]: prevState.dice[distance] - 1
+          }
+        }))
+        return true
+      }
+      else {
+        return false
+      }
+    }
+  }
   handleBase = (spaceID) => {
     console.log('handleBase')
     if (this.state.currentMove !== 0) {
       // has clicked a tile first
-      if(this.state.whosTurn === 1){
+      if (this.state.whosTurn === 1) {
         // blue's turn
         let totalBlueCount = this.state.blueBase
         this.state.gameState.map(space => {
-          if(space.id > 18 && space.color === 1){
+          if (space.id > 18 && space.color === 1) {
             totalBlueCount += space.count
           } else {
             totalBlueCount = totalBlueCount
           }
         })
 
-        if(totalBlueCount === 15){
+        if (totalBlueCount === 15) {
           // if all pieces are in homebase, allow a piece to be pulled
           // do a dice check for blue
-          if(this.attemptDiceMove(25, this.state.currentMove)){
+          if (this.attemptDiceMove(25, this.state.currentMove)) {
             this.setState(prevState => ({
               gameState: prevState.gameState.map(space => {
                 if (space.id === this.state.currentMove) {
@@ -562,16 +599,16 @@ gameState: [
         // red's turn
         let totalRedCount = this.state.redBase
         this.state.gameState.map(space => {
-          if(space.id < 7 && space.color === 2){
+          if (space.id < 7 && space.color === 2) {
             totalRedCount += space.count
           } else {
             totalRedCount = totalRedCount
           }
         })
-        if(totalRedCount === 15){
+        if (totalRedCount === 15) {
           // if all pieces are in homebase, allow a piece to be pulled
           // do a dice check
-          if(this.attemptDiceMove(0, this.state.currentMove)){
+          if (this.attemptDiceMove(0, this.state.currentMove)) {
             this.setState(prevState => ({
               gameState: prevState.gameState.map(space => {
                 if (space.id === this.state.currentMove) {

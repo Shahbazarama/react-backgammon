@@ -15,10 +15,10 @@ export default function Dice({ diceValues, rollDice, whosTurn }) {
             <h1>{roll}</h1>
           )
         })}
-        {diceArray.length === 0 ? "Next Turn" : ""}
+        <h1>{diceArray.length === 0 ? "Next Turn" : ""}</h1>
       </div>
-      <button onClick={() => rollDice()}>
-        roll!
+      <button className="btn btn-lg btn-info" onClick={() => rollDice()}>
+        Roll the Dice!
       </button>
 
       <h2>{whosTurn === 1 ? "Blue's Turn" : "Red's Turn"}</h2>

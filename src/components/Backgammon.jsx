@@ -15,14 +15,137 @@ class Backgammon extends React.Component {
     redBase: 0,
     dice: {}
   };
-
+/*
+gameState: [
+  {
+    id: 1,
+    count: 2,
+    color: 1
+  },
+  {
+    id: 2,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 3,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 4,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 5,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 6,
+    count: 5,
+    color: 2
+  },
+  {
+    id: 7,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 8,
+    count: 3,
+    color: 2
+  },
+  {
+    id: 9,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 10,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 11,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 12,
+    count: 5,
+    color: 1
+  },
+  {
+    id: 13,
+    count: 5,
+    color: 2
+  },
+  {
+    id: 14,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 15,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 16,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 17,
+    count: 3,
+    color: 1
+  },
+  {
+    id: 18,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 19,
+    count: 5,
+    color: 1
+  },
+  {
+    id: 20,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 21,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 22,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 23,
+    count: 0,
+    color: 0
+  },
+  {
+    id: 24,
+    count: 2,
+    color: 2
+  }
+]
+*/
   componentDidMount = async () => {
     this.setState({
       gameState: [
         {
           id: 1,
-          count: 2,
-          color: 1
+          count: 0,
+          color: 0
         },
         {
           id: 2,
@@ -76,8 +199,8 @@ class Backgammon extends React.Component {
         },
         {
           id: 12,
-          count: 5,
-          color: 1
+          count: 0,
+          color: 0
         },
         {
           id: 13,
@@ -101,7 +224,7 @@ class Backgammon extends React.Component {
         },
         {
           id: 17,
-          count: 3,
+          count: 0,
           color: 1
         },
         {
@@ -111,28 +234,28 @@ class Backgammon extends React.Component {
         },
         {
           id: 19,
+          count: 0,
+          color: 0
+        },
+        {
+          id: 20,
+          count: 2,
+          color: 1
+        },
+        {
+          id: 21,
+          count: 3,
+          color: 1
+        },
+        {
+          id: 22,
           count: 5,
           color: 1
         },
         {
-          id: 20,
-          count: 0,
-          color: 0
-        },
-        {
-          id: 21,
-          count: 0,
-          color: 0
-        },
-        {
-          id: 22,
-          count: 0,
-          color: 0
-        },
-        {
           id: 23,
-          count: 0,
-          color: 0
+          count: 5,
+          color: 1
         },
         {
           id: 24,
@@ -356,6 +479,7 @@ class Backgammon extends React.Component {
   }; //confirm move
 
   attemptDiceMove = (attemptedSpaceID, currentSpaceID) => {
+    console.log('attemptDiceMove')
     if (this.state.whosTurn === 1) {
       //blue, moves with increasing space
       let distance = attemptedSpaceID - currentSpaceID;
@@ -393,32 +517,86 @@ class Backgammon extends React.Component {
     }
   }
   handleBase = (spaceID) => {
+    console.log('handleBase')
     if (this.state.currentMove !== 0) {
       // has clicked a tile first
-      this.setState(prevState => ({
-        gameState: prevState.gameState.map(space => {
-          if (space.id === this.state.currentMove) {
-            // remove tile from current location
-            return {
-              ...space,
-              count: space.count - 1,
-              color: (space.count === 1 ? 0 : space.color)
-            }
+      if(this.state.whosTurn === 1){
+        // blue's turn
+        let totalBlueCount = this.state.blueBase
+        this.state.gameState.map(space => {
+          if(space.id > 18 && space.color === 1){
+            totalBlueCount += space.count
           } else {
-            // return all other tiles not affected
-            return {
-              ...space
-            }
+            totalBlueCount = totalBlueCount
           }
-        }),
-        currentMove: 0,
-        blueBase: (this.state.whosTurn === 1 ? prevState.blueBase + 1 : prevState.blueBase),
-        redBase: (this.state.whosTurn === 2 ? prevState.redBase + 1 : prevState.redBase)
-      }), () => {
-        this.checkVictory()
-      });
-    }
+        })
 
+        if(totalBlueCount === 15){
+          // if all pieces are in homebase, allow a piece to be pulled
+          // do a dice check for blue
+          if(this.attemptDiceMove(25, this.state.currentMove)){
+            this.setState(prevState => ({
+              gameState: prevState.gameState.map(space => {
+                if (space.id === this.state.currentMove) {
+                  // remove tile from current location
+                  return {
+                    ...space,
+                    count: space.count - 1,
+                    color: (space.count === 1 ? 0 : space.color)
+                  }
+                } else {
+                  // return all other tiles not affected
+                  return {
+                    ...space
+                  }
+                }
+              }),
+              currentMove: 0,
+              blueBase: prevState.blueBase + 1
+            }), () => {
+              this.checkVictory()
+            });
+          }
+        }
+      } else if (this.state.whosTurn === 2) {
+        // red's turn
+        let totalRedCount = this.state.redBase
+        this.state.gameState.map(space => {
+          if(space.id < 7 && space.color === 2){
+            totalRedCount += space.count
+          } else {
+            totalRedCount = totalRedCount
+          }
+        })
+        if(totalRedCount === 15){
+          // if all pieces are in homebase, allow a piece to be pulled
+          // do a dice check
+          if(this.attemptDiceMove(0, this.state.currentMove)){
+            this.setState(prevState => ({
+              gameState: prevState.gameState.map(space => {
+                if (space.id === this.state.currentMove) {
+                  // remove tile from current location
+                  return {
+                    ...space,
+                    count: space.count - 1,
+                    color: (space.count === 1 ? 0 : space.color)
+                  }
+                } else {
+                  // return all other tiles not affected
+                  return {
+                    ...space
+                  }
+                }
+              }),
+              currentMove: 0,
+              redBase: prevState.redBase + 1
+            }), () => {
+              this.checkVictory()
+            });
+          }
+        }
+      }
+    }
   }
 
   checkVictory = () => {

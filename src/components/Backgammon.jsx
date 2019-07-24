@@ -184,10 +184,28 @@ class Backgammon extends React.Component {
 
   makeMove = (event, spaceID) => {
     event.stopPropagation()
+    if(this.state.whosTurn === 1) {
+      if(this.state.blueJail > 0){
+        this.setState({
+          currentMove: 0
+        })
+      } else {
+        this.setState({
+          currentMove: spaceID
+        })
+      }
+    } else if (this.state.whosTurn === 2) {
+      if(this.state.redJail > 0){
+        this.setState({
+          currentMove: 0
+        })
+      } else {
+        this.setState({
+          currentMove: spaceID
+        })
+      }
+    }
 
-    this.setState({
-      currentMove: spaceID
-    })
   }
 
   confirmMove = (event, spaceID) => {
@@ -300,6 +318,37 @@ class Backgammon extends React.Component {
               }
             }),
             currentMove: 0
+          }));
+        }
+      } else if (attemptedSpace.color !== this.state.whosTurn) {
+        if (attemptedSpace.count === 1 && this.attemptDiceMove(attemptedSpace.id, (this.state.whosTurn === 1 ? 0 : 25))) {
+
+          // send enemy to jail while leaving jail
+          this.setState(prevState => ({
+            gameState: prevState.gameState.map(space => {
+              if (space.id === this.state.currentMove) {
+                // remove tile from current location
+                return {
+                  ...space,
+                  count: space.count - 1,
+                  color: (space.count === 1 ? 0 : space.color)
+                };
+              } else if (space.id === attemptedSpace.id) {
+                // other piece is sent to jail, just replace single tile color
+                return {
+                  ...space,
+                  color: this.state.whosTurn
+                };
+              } else {
+                // return all other tiles not affected
+                return {
+                  ...space
+                };
+              }
+            }),
+            currentMove: 0,
+            blueJail: (attemptedSpace.color === 1 ? prevState.blueJail + 1 : prevState.blueJail - 1),
+            redJail: (attemptedSpace.color === 2 ? prevState.redJail + 1 : prevState.redJail - 1)
           }));
         }
       }

@@ -1,4 +1,6 @@
 import React from "react";
+import './Gameboard.css'
+
 let topOfGameboardCSS = {
   padding: '5px',
   border: "thick ridge #795548",
@@ -29,6 +31,7 @@ let bottomOfGameboardCSSAlt = {
 let moveablePieceCSS = {
   border: 'thick dotted #ffffff'
 }
+
 
 export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }) {
   return (

@@ -15,137 +15,14 @@ class Backgammon extends React.Component {
     redBase: 0,
     dice: {}
   };
-  /*
-  gameState: [
-    {
-      id: 1,
-      count: 2,
-      color: 1
-    },
-    {
-      id: 2,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 3,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 4,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 5,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 6,
-      count: 5,
-      color: 2
-    },
-    {
-      id: 7,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 8,
-      count: 3,
-      color: 2
-    },
-    {
-      id: 9,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 10,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 11,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 12,
-      count: 5,
-      color: 1
-    },
-    {
-      id: 13,
-      count: 5,
-      color: 2
-    },
-    {
-      id: 14,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 15,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 16,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 17,
-      count: 3,
-      color: 1
-    },
-    {
-      id: 18,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 19,
-      count: 5,
-      color: 1
-    },
-    {
-      id: 20,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 21,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 22,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 23,
-      count: 0,
-      color: 0
-    },
-    {
-      id: 24,
-      count: 2,
-      color: 2
-    }
-  ]
-  */
+
   componentDidMount = async () => {
     this.setState({
       gameState: [
         {
           id: 1,
-          count: 0,
-          color: 0
+          count: 2,
+          color: 1
         },
         {
           id: 2,
@@ -199,8 +76,8 @@ class Backgammon extends React.Component {
         },
         {
           id: 12,
-          count: 0,
-          color: 0
+          count: 5,
+          color: 1
         },
         {
           id: 13,
@@ -224,7 +101,7 @@ class Backgammon extends React.Component {
         },
         {
           id: 17,
-          count: 0,
+          count: 3,
           color: 1
         },
         {
@@ -234,28 +111,28 @@ class Backgammon extends React.Component {
         },
         {
           id: 19,
+          count: 5,
+          color: 1
+        },
+        {
+          id: 20,
           count: 0,
           color: 0
         },
         {
-          id: 20,
-          count: 2,
-          color: 1
-        },
-        {
           id: 21,
-          count: 3,
-          color: 1
+          count: 0,
+          color: 0
         },
         {
           id: 22,
-          count: 5,
-          color: 1
+          count: 0,
+          color: 0
         },
         {
           id: 23,
-          count: 5,
-          color: 1
+          count: 0,
+          color: 0
         },
         {
           id: 24,
@@ -500,7 +377,6 @@ class Backgammon extends React.Component {
     } else if (this.state.whosTurn === 2) {
       ///red, moves with decreasing space
       let distance = currentSpaceID - attemptedSpaceID;
-      console.log(distance)
       if (this.state.dice[distance] > 0) {
         //checks if the distance between spaces is in the dice values we have in state
         this.setState(prevState => ({
@@ -518,11 +394,20 @@ class Backgammon extends React.Component {
   }
 
   attemptDiceMoveToBase = () => {
-    currentSpaceID = this.state.currentMove;
+    let currentSpaceID = this.state.currentMove;
     if (this.state.whosTurn === 1) {
+      let piecesBehindCurrentSpace = false
+      this.state.gameState.some(space => {
+        if (space.id > 18 && space.id < currentSpaceID) {
+          if(space.color === 1){
+            return piecesBehindCurrentSpace = true
+          }
+        }
+      })
       let distance = 25 - currentSpaceID;
+
       if (this.state.dice[distance] > 0) {
-        //checks if the distance between spaces is in the dice values we have in state
+        // do we have that dice value available
         this.setState(prevState => ({
           dice: {
             ...prevState.dice,
@@ -530,16 +415,38 @@ class Backgammon extends React.Component {
           }
         }))
         return true
-      }
-      else {
+
+      } else if (!piecesBehindCurrentSpace) {
+        console.log(distance)
+        for (var i = distance; i <= 6; i++) {
+          if(this.state.dice[i]){
+            this.setState(prevState => ({
+              dice: {
+                ...prevState.dice,
+                [i]: prevState.dice[i] - 1
+              }
+            }))
+            return true
+          }
+        }
         return false
       }
+
+
     } else if (this.state.whosTurn === 2) {
       ///red, moves with decreasing space
-      let distance = currentSpaceID - attemptedSpaceID;
-      console.log(distance)
+      let piecesBehindCurrentSpace = false
+      this.state.gameState.some(space => {
+        if (space.id > currentSpaceID && space.id < 7) {
+          if(space.color === 2){
+            return piecesBehindCurrentSpace = true
+          }
+        }
+      })
+      let distance = currentSpaceID;
+
       if (this.state.dice[distance] > 0) {
-        //checks if the distance between spaces is in the dice values we have in state
+        // do we have that dice value available
         this.setState(prevState => ({
           dice: {
             ...prevState.dice,
@@ -547,12 +454,26 @@ class Backgammon extends React.Component {
           }
         }))
         return true
-      }
-      else {
+
+      } else if (!piecesBehindCurrentSpace) {
+        console.log(distance)
+        for (var i = distance; i <= 6; i++) {
+          if(this.state.dice[i]){
+            this.setState(prevState => ({
+              dice: {
+                ...prevState.dice,
+                [i]: prevState.dice[i] - 1
+              }
+            }))
+            return true
+          }
+        }
         return false
       }
     }
   }
+
+
   handleBase = (spaceID) => {
     console.log('handleBase')
     if (this.state.currentMove !== 0) {
@@ -571,7 +492,7 @@ class Backgammon extends React.Component {
         if (totalBlueCount === 15) {
           // if all pieces are in homebase, allow a piece to be pulled
           // do a dice check for blue
-          if (this.attemptDiceMove(25, this.state.currentMove)) {
+          if (this.attemptDiceMoveToBase()) {
             this.setState(prevState => ({
               gameState: prevState.gameState.map(space => {
                 if (space.id === this.state.currentMove) {
@@ -608,7 +529,7 @@ class Backgammon extends React.Component {
         if (totalRedCount === 15) {
           // if all pieces are in homebase, allow a piece to be pulled
           // do a dice check
-          if (this.attemptDiceMove(0, this.state.currentMove)) {
+          if (this.attemptDiceMoveToBase()) {
             this.setState(prevState => ({
               gameState: prevState.gameState.map(space => {
                 if (space.id === this.state.currentMove) {

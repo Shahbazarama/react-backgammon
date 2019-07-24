@@ -13,14 +13,7 @@ class Backgammon extends React.Component {
     redJail: 0,
     blueBase: 0,
     redBase: 0,
-    dice: {
-      1: 1,
-      2: 1,
-      3: 1,
-      4: 1,
-      5: 1,
-      6: 1
-    }
+    dice: {}
   };
 
   componentDidMount = async () => {
@@ -161,6 +154,20 @@ class Backgammon extends React.Component {
       whosTurn: prevState.whosTurn === 1 ? 2 : 1,
       currentMove: 0,
     }));
+    if(rollValue1 === rollValue2){
+      this.setState({
+        dice: {
+          [rollValue1]: 4
+        }
+      })
+    } else {
+      this.setState({
+        dice: {
+          [rollValue1]: 1,
+          [rollValue2]: 1
+        }
+      })
+    }
   };
 
   startOfGame = () => {
@@ -191,11 +198,11 @@ class Backgammon extends React.Component {
 
       // gather new space data
       let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
-      if (this.attemptDiceMove(attemptedSpace)) {
-        if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color === 0) && !(this.state.currentMove === attemptedSpace.id)) {
-          //
-          // }
-          // has selected a space with same color or empty, and it is not the same space as the original tile
+
+      if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color === 0) && !(this.state.currentMove === attemptedSpace.id)) {
+        // has selected a space with same color or empty, and it is not the same space as the original tile
+        if (this.attemptDiceMove(attemptedSpace.id, this.state.currentMove)) {
+          // check if the move lines up with the dice roll
           this.setState(prevState => ({
             gameState: prevState.gameState.map(space => {
               if (space.id === this.state.currentMove) {
@@ -221,40 +228,40 @@ class Backgammon extends React.Component {
             }),
             currentMove: 0
           }));
-        } else if (attemptedSpace.color !== this.state.whosTurn) {
-          if (attemptedSpace.count === 1) {
-            // send enemy to jail
-            this.setState(prevState => ({
-              gameState: prevState.gameState.map(space => {
-                if (space.id === this.state.currentMove) {
-                  // remove tile from current location
-                  return {
-                    ...space,
-                    count: space.count - 1,
-                    color: (space.count === 1 ? 0 : space.color)
-                  };
-                } else if (space.id === attemptedSpace.id) {
-                  // other piece is sent to jail, just replace single tile color
-                  return {
-                    ...space,
-                    color: this.state.whosTurn
-                  };
-                } else {
-                  // return all other tiles not affected
-                  return {
-                    ...space
-                  };
-                }
-              }),
-              currentMove: 0,
-              blueJail: (attemptedSpace.color === 1 ? prevState.blueJail + 1 : prevState.blueJail),
-              redJail: (attemptedSpace.color === 2 ? prevState.redJail + 1 : prevState.redJail)
-            }));
-          }
-
-
         }
-        else { console.log("else") }
+      } else if (attemptedSpace.color !== this.state.whosTurn) {
+        if (attemptedSpace.count === 1 && this.attemptDiceMove(attemptedSpace.id, this.state.currentMove)) {
+
+          // send enemy to jail
+          this.setState(prevState => ({
+            gameState: prevState.gameState.map(space => {
+              if (space.id === this.state.currentMove) {
+                // remove tile from current location
+                return {
+                  ...space,
+                  count: space.count - 1,
+                  color: (space.count === 1 ? 0 : space.color)
+                };
+              } else if (space.id === attemptedSpace.id) {
+                // other piece is sent to jail, just replace single tile color
+                return {
+                  ...space,
+                  color: this.state.whosTurn
+                };
+              } else {
+                // return all other tiles not affected
+                return {
+                  ...space
+                };
+              }
+            }),
+            currentMove: 0,
+            blueJail: (attemptedSpace.color === 1 ? prevState.blueJail + 1 : prevState.blueJail),
+            redJail: (attemptedSpace.color === 2 ? prevState.redJail + 1 : prevState.redJail)
+          }));
+        }
+      } else {
+        console.log("else")
       }
     } else {
       //tile is in jail
@@ -271,36 +278,41 @@ class Backgammon extends React.Component {
 
       let attemptedSpace = this.state.gameState.filter(space => space.id === spaceID)[0]
       if ((attemptedSpace.color === this.state.whosTurn || attemptedSpace.color === 0) && flag) {
-        // has selected a space with same color or empty, and it is not the same space as the original tile
-        this.setState(prevState => ({
-          redJail: prevState.whosTurn === 1 ? prevState.redJail : prevState.redJail - 1,
-          blueJail: prevState.whosTurn === 2 ? prevState.blueJail : prevState.blueJail - 1,
-          gameState: prevState.gameState.map(space => {
-            if (space.id === attemptedSpace.id) {
-              // add one tile to new location
-              return {
-                ...space,
-                count: space.count + 1,
-                color: this.state.whosTurn
-              };
-            } else {
-              // return all other tiles not affected
-              return {
-                ...space
-              };
-            }
-          }),
-          currentMove: 0
-        }));
+        // tile is attempting to leave jail because jail flag is true
+        if(this.attemptDiceMove(attemptedSpace.id, (this.state.whosTurn === 1 ? 0 : 25))){
+
+          this.setState(prevState => ({
+            redJail: prevState.whosTurn === 1 ? prevState.redJail : prevState.redJail - 1,
+            blueJail: prevState.whosTurn === 2 ? prevState.blueJail : prevState.blueJail - 1,
+            gameState: prevState.gameState.map(space => {
+              if (space.id === attemptedSpace.id) {
+                // add one tile to new location
+                return {
+                  ...space,
+                  count: space.count + 1,
+                  color: this.state.whosTurn
+                };
+              } else {
+                // return all other tiles not affected
+                return {
+                  ...space
+                };
+              }
+            }),
+            currentMove: 0
+          }));
+        }
       }
     }
   }; //confirm move
-  attemptDiceMove = (attemptedSpace) => {
-    if (this.state.whosTurn === 1) {//blue, moves with increasing space
 
-      let distance = attemptedSpace.id - this.state.currentMove;
+  attemptDiceMove = (attemptedSpaceID, currentSpaceID) => {
+    if (this.state.whosTurn === 1) {
+      //blue, moves with increasing space
+      let distance = attemptedSpaceID - currentSpaceID;
       console.log(distance)
-      if (this.state.dice[distance] > 0) {//checks if the distance between spaces is in the dice values we have in state
+      if (this.state.dice[distance] > 0) {
+        //checks if the distance between spaces is in the dice values we have in state
         this.setState(prevState => ({
           dice: {
             ...prevState.dice,
@@ -311,10 +323,24 @@ class Backgammon extends React.Component {
       }
       else {
         return false
-
       }
-    } else {///red, moves with decreasing space
-      //fsdkjdsh
+    } else if (this.state.whosTurn === 2) {
+      ///red, moves with decreasing space
+      let distance = currentSpaceID - attemptedSpaceID;
+      console.log(distance)
+      if (this.state.dice[distance] > 0) {
+        //checks if the distance between spaces is in the dice values we have in state
+        this.setState(prevState => ({
+          dice: {
+            ...prevState.dice,
+            [distance]: prevState.dice[distance] - 1
+          }
+        }))
+        return true
+      }
+      else {
+        return false
+      }
     }
   }
   handleBase = (spaceID) => {

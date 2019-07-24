@@ -15,27 +15,26 @@ export default function Dice({ diceValues, rollDice, whosTurn }) {
 
   return (
     <div>
-      <div>
-        {diceArray.map(roll => {
-          return (
-            <>
-              {roll == 1 ? <FontAwesomeIcon icon={faDiceOne} size="4x" /> : <></>}
-              {roll == 2 ? <FontAwesomeIcon icon={faDiceTwo} size="4x" /> : <></>}
-              {roll == 3 ? <FontAwesomeIcon icon={faDiceThree} size="4x" /> : <></>}
-              {roll == 4 ? <FontAwesomeIcon icon={faDiceFour} size="4x" /> : <></>}
-              {roll == 5 ? <FontAwesomeIcon icon={faDiceFive} size="4x" /> : <></>}
-              {roll == 6 ? <FontAwesomeIcon icon={faDiceSix} size="4x" /> : <></>}
-            </>
-          )
-        })}
-        <h1>{diceArray.length === 0 ? "Next Turn" : ""}</h1>
-      </div>
-      <button className="btn btn-lg btn-info" onClick={() => rollDice()}>
+      {diceArray.map(roll => {
+        return (
+          <div style={{display: 'inline'}}>
+            {roll == 1 ? <FontAwesomeIcon icon={faDiceOne} size="5x" /> : null}
+            {roll == 2 ? <FontAwesomeIcon icon={faDiceTwo} size="5x" /> : null}
+            {roll == 3 ? <FontAwesomeIcon icon={faDiceThree} size="5x" /> : null}
+            {roll == 4 ? <FontAwesomeIcon icon={faDiceFour} size="5x" /> : null}
+            {roll == 5 ? <FontAwesomeIcon icon={faDiceFive} size="5x" /> : null}
+            {roll == 6 ? <FontAwesomeIcon icon={faDiceSix} size="5x" /> : null}
+          </div>
+        )
+      })}
+      <br />
+      <br />
+      <hr />
+      <h1>{diceArray.length === 0 ? "Next Turn" : ""}</h1>
+      <button className="align-self-end btn btn-lg btn-info btn-block" onClick={() => rollDice()}>
         Roll the Dice!
       </button>
-
-
-      <h2>{whosTurn === 1 ? "Blue's Turn" : "Red's Turn"}</h2>
+      <h2 style={whosTurn === 1 ? {color: 'blue', paddingTop: '25px'} : {color: 'red', paddingTop: '25px'}}>{whosTurn === 1 ? "Blue's Turn" : "Red's Turn"}</h2>
     </div>
   )
 

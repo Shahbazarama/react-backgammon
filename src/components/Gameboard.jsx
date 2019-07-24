@@ -47,7 +47,7 @@ export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }
               >
               {[...Array(space.count)].map((x,index) => {
                 return(
-                  <button disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e,space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                  <button style={{borderRadius: '15px'}} disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e,space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
                     Ω<br />
                   </button>
                 )
@@ -69,7 +69,7 @@ export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }
               >
               {[...Array(space.count)].map((x,index) => {
                 return(
-                  <button disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                  <button style={{borderRadius: '15px'}} disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
                     Ω<br />
                   </button>
                 )

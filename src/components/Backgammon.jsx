@@ -576,26 +576,27 @@ class Backgammon extends React.Component {
               whosTurn={this.state.whosTurn}
             />
           </div>
-          <div className="col-2">
+          <div className="col-2 d-flex flex-column justify-content-between">
+            <div>
+              <button disabled={this.state.whosTurn === 2 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-primary btn-block">Blue Base</button>
+            </div>
+
             <Dice
               diceValues={this.state.dice}
               rollDice={this.rollDice}
               whosTurn={this.state.whosTurn}
             />
+
             <Jail
               blueJail={this.state.blueJail}
               redJail={this.state.redJail}
               whosTurn={this.state.whosTurn}
               makeMove={this.makeMove}
             />
-            <div>
-              <button disabled={this.state.whosTurn === 2 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-primary">Blue Base</button>
-            </div>
 
             <div>
-              <button disabled={this.state.whosTurn === 1 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-danger">Red Base</button>
+              <button disabled={this.state.whosTurn === 1 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-danger justify-content-end btn-block">Red Base</button>
             </div>
-
           </div>
         </div>
       </div>

@@ -6,7 +6,6 @@ import Jail from "./Jail";
 class Backgammon extends React.Component {
   state = {
     gameState: [],
-    diceValues: [],
     whosTurn: 1,
     currentMove: 0,
     blueJail: 0,
@@ -139,8 +138,7 @@ class Backgammon extends React.Component {
           count: 2,
           color: 2
         }
-      ],
-      diceValues: [1, 1]
+      ]
     });
     this.rollDice();
     this.startOfGame();
@@ -149,24 +147,23 @@ class Backgammon extends React.Component {
   rollDice = () => {
     let rollValue1 = Math.floor(Math.random() * 6) + 1;
     let rollValue2 = Math.floor(Math.random() * 6) + 1;
-    this.setState(prevState => ({
-      diceValues: [rollValue1, rollValue2],
-      whosTurn: prevState.whosTurn === 1 ? 2 : 1,
-      currentMove: 0,
-    }));
     if (rollValue1 === rollValue2) {
-      this.setState({
+      this.setState(prevState => ({
         dice: {
           [rollValue1]: 4
-        }
-      })
+        },
+        whosTurn: prevState.whosTurn === 1 ? 2 : 1,
+        currentMove: 0
+      }))
     } else {
-      this.setState({
+      this.setState(prevState => ({
         dice: {
           [rollValue1]: 1,
           [rollValue2]: 1
-        }
-      })
+        },
+        whosTurn: prevState.whosTurn === 1 ? 2 : 1,
+        currentMove: 0
+      }))
     }
   };
 
@@ -399,7 +396,7 @@ class Backgammon extends React.Component {
       let piecesBehindCurrentSpace = false
       this.state.gameState.some(space => {
         if (space.id > 18 && space.id < currentSpaceID) {
-          if(space.color === 1){
+          if (space.color === 1) {
             return piecesBehindCurrentSpace = true
           }
         }
@@ -419,7 +416,7 @@ class Backgammon extends React.Component {
       } else if (!piecesBehindCurrentSpace) {
         console.log(distance)
         for (var i = distance; i <= 6; i++) {
-          if(this.state.dice[i]){
+          if (this.state.dice[i]) {
             this.setState(prevState => ({
               dice: {
                 ...prevState.dice,
@@ -438,7 +435,7 @@ class Backgammon extends React.Component {
       let piecesBehindCurrentSpace = false
       this.state.gameState.some(space => {
         if (space.id > currentSpaceID && space.id < 7) {
-          if(space.color === 2){
+          if (space.color === 2) {
             return piecesBehindCurrentSpace = true
           }
         }
@@ -458,7 +455,7 @@ class Backgammon extends React.Component {
       } else if (!piecesBehindCurrentSpace) {
         console.log(distance)
         for (var i = distance; i <= 6; i++) {
-          if(this.state.dice[i]){
+          if (this.state.dice[i]) {
             this.setState(prevState => ({
               dice: {
                 ...prevState.dice,
@@ -581,7 +578,7 @@ class Backgammon extends React.Component {
           </div>
           <div className="col-2">
             <Dice
-              diceValues={this.state.diceValues}
+              diceValues={this.state.dice}
               rollDice={this.rollDice}
               whosTurn={this.state.whosTurn}
             />

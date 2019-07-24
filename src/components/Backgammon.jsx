@@ -399,7 +399,9 @@ class Backgammon extends React.Component {
           if (space.color === 1) {
             return piecesBehindCurrentSpace = true
           }
+          else return;
         }
+        else return;
       })
       let distance = 25 - currentSpaceID;
 
@@ -438,7 +440,9 @@ class Backgammon extends React.Component {
           if (space.color === 2) {
             return piecesBehindCurrentSpace = true
           }
+          else return;
         }
+        else return;
       })
       let distance = currentSpaceID;
 
@@ -454,7 +458,7 @@ class Backgammon extends React.Component {
 
       } else if (!piecesBehindCurrentSpace) {
         console.log(distance)
-        for (var i = distance; i <= 6; i++) {
+        for (let i = distance; i <= 6; i++) {
           if (this.state.dice[i]) {
             this.setState(prevState => ({
               dice: {

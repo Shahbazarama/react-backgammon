@@ -28,57 +28,54 @@ let bottomOfGameboardCSSAlt = {
   height: "45vh"
 };
 
-let moveablePieceCSS = {
-  border: 'thick dotted #ffffff'
-}
-
 
 export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }) {
   return (
     <>
-    <div className="row">
-      {gameState.map(space => {
-        if (space.id > 12) {
-          return (
-            <div
-              className="col-1 d-flex flex-column"
-              style={space.id < 19 ? topOfGameboardCSS : topOfGameboardCSSAlt}
-              onClick={(e) => confirmMove(e, space.id)}
+      <div className="row">
+        {gameState.map(space => {
+          if (space.id > 12) {
+            return (
+              <div
+                className="col-1 d-flex flex-column"
+                style={space.id < 19 ? topOfGameboardCSS : topOfGameboardCSSAlt}
+                onClick={(e) => confirmMove(e, space.id)}
               >
-              {[...Array(space.count)].map((x,index) => {
-                return(
-                  <button style={{borderRadius: '15px'}} disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e,space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
-                    Ω<br />
-                  </button>
-                )
-              })}
-            </div>
-          );
-        }
-      })}
-    </div>
-    <hr />
-    <div className="row">
-      {gameState.slice(0).reverse().map(space => {
-        if (space.id < 13){
-          return (
-            <div
-              className="col-1 d-flex flex-column-reverse"
-              style={space.id > 6 ? bottomOfGameboardCSS : bottomOfGameboardCSSAlt}
-              onClick={(e) => confirmMove(e, space.id)}
+                {[...Array(space.count)].map((x, index) => {
+                  return (
+                    <button style={{ borderRadius: '15px' }} disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                      Ω<br />
+                    </button>
+                  )
+                })}
+              </div>
+            );
+          }
+          return;
+        })}
+      </div>
+      <hr />
+      <div className="row">
+        {gameState.slice(0).reverse().map(space => {
+          if (space.id < 13) {
+            return (
+              <div
+                className="col-1 d-flex flex-column-reverse"
+                style={space.id > 6 ? bottomOfGameboardCSS : bottomOfGameboardCSSAlt}
+                onClick={(e) => confirmMove(e, space.id)}
               >
-              {[...Array(space.count)].map((x,index) => {
-                return(
-                  <button style={{borderRadius: '15px'}} disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
-                    Ω<br />
-                  </button>
-                )
-              })}
-            </div>
-          )
-        }
-      })}
-    </div>
-  </>
+                {[...Array(space.count)].map((x, index) => {
+                  return (
+                    <button style={{ borderRadius: '15px' }} disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                      Ω<br />
+                    </button>
+                  )
+                })}
+              </div>
+            )
+          }
+        })}
+      </div>
+    </>
   );
 }

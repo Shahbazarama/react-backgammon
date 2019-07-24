@@ -572,19 +572,7 @@ class Backgammon extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-10">
-            <Gameboard
-              gameState={this.state.gameState}
-              makeMove={this.makeMove}
-              confirmMove={this.confirmMove}
-              whosTurn={this.state.whosTurn}
-            />
-          </div>
-          <div className="col-2 d-flex flex-column justify-content-between">
-            <div>
-              <button disabled={this.state.whosTurn === 2 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-primary btn-block">Blue Base</button>
-            </div>
-
+          <div className="col-2">
             <Dice
               diceValues={this.state.dice}
               rollDice={this.rollDice}
@@ -597,6 +585,19 @@ class Backgammon extends React.Component {
               whosTurn={this.state.whosTurn}
               makeMove={this.makeMove}
             />
+          </div>
+          <div className="col-8">
+            <Gameboard
+              gameState={this.state.gameState}
+              makeMove={this.makeMove}
+              confirmMove={this.confirmMove}
+              whosTurn={this.state.whosTurn}
+            />
+          </div>
+          <div className="col-2 d-flex flex-column justify-content-between">
+            <div>
+              <button disabled={this.state.whosTurn === 2 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-primary btn-block">Blue Base</button>
+            </div>
 
             <div>
               <button disabled={this.state.whosTurn === 1 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-danger justify-content-end btn-block">Red Base</button>

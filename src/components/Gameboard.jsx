@@ -3,27 +3,27 @@ import './Gameboard.css'
 
 let topOfGameboardCSS = {
   padding: '5px',
-  border: "thick ridge #795548",
+  border: "solid 3px #212529",
   borderRadius: "0 0 50px 50px",
   height: "45vh"
 };
 let topOfGameboardCSSAlt = {
   padding: '5px',
-  border: "thick ridge #039be5",
+  border: "solid 3px #007bff",
   borderRadius: "0 0 50px 50px",
   height: "45vh"
 };
 
 let bottomOfGameboardCSS = {
   padding: '5px',
-  border: "thick ridge #795548",
+  border: "solid 3px #212529",
   borderRadius: "50px 50px 0 0",
   height: "45vh"
 };
 
 let bottomOfGameboardCSSAlt = {
   padding: '5px',
-  border: "thick ridge #bf360c",
+  border: "solid 3px #dc3545",
   borderRadius: "50px 50px 0 0",
   height: "45vh"
 };

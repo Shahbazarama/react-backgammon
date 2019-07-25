@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Backgammon in React!
 
-Check it out at (url)
+Check it out at https://raffishahbazian.com/react-backgammon/
 
 ## How to play
 

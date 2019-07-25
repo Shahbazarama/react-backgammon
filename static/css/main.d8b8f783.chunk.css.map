@@ -1,0 +1,1 @@
+{"version":3,"sources":["Gameboard.css"],"names":[],"mappings":"AAAA,qBACE,kBACF","file":"main.d8b8f783.chunk.css","sourcesContent":[".col-1:nth-child(2n) {\n  background: #e0e0e0\n}\n"]}

@@ -6,7 +6,7 @@ export default function Jail({ blueJail, redJail, whosTurn, makeMove }) {
     <div>
       <div className="container">
         <div className="row">
-          <div className="col-6" style={{ border: "solid 3px #212529", }}>
+          <div className="col-12" style={{ border: "solid 3px #212529", textAlign: "center" }}>
             <h4 style={{ color: '#212529' }}><u>Jail</u></h4>
             {[...Array(blueJail)].map(() => {
               return (

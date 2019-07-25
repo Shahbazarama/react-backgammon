@@ -17,7 +17,7 @@ export default function Dice({ diceValues, rollDice, whosTurn }) {
     <div style={{ height: "50vh" }}>
       <h2 style={whosTurn === 1 ? { color: '#007bff', paddingTop: '25px' } : { color: '#dc3545', paddingTop: '25px' }}>{whosTurn === 1 ? "Blue's Turn" : "Red's Turn"}</h2>
 
-      <button className="align-self-end btn btn-lg btn-info btn-block" onClick={() => rollDice()}>
+      <button className={whosTurn === 1 ? "align-self-end btn btn-lg btn-danger btn-block" : "align-self-end btn btn-lg btn-primary btn-block"} onClick={() => rollDice()}>
         Roll the Dice!
       </button>
       {diceArray.map(roll => {

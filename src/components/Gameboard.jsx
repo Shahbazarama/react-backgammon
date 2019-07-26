@@ -28,8 +28,13 @@ let bottomOfGameboardCSSAlt = {
   height: "45vh"
 };
 
+let buttonStyle = {
+  borderRadius: '15px',
+  border: "solid 3px #000000"
+}
 
-export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }) {
+
+export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn}) {
   return (
     <>
       <div className="row">
@@ -43,8 +48,8 @@ export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }
               >
                 {[...Array(space.count)].map((x, index) => {
                   return (
-                    <button style={{ borderRadius: '15px' }} disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
-                      Ω<br />
+                    <button style={ buttonStyle } disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                      <br />
                     </button>
                   )
                 })}
@@ -66,8 +71,8 @@ export default function Gameboard({ gameState, makeMove, confirmMove, whosTurn }
               >
                 {[...Array(space.count)].map((x, index) => {
                   return (
-                    <button style={{ borderRadius: '15px' }} disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
-                      Ω<br />
+                    <button style={ buttonStyle } disabled={whosTurn === space.color ? false : true} onClick={(e) => makeMove(e, space.id)} className={space.color === 1 ? "btn btn-sm btn-primary" : "btn btn-sm btn-danger"}>
+                      <br />
                     </button>
                   )
                 })}

@@ -2,6 +2,7 @@ import React from "react";
 import Gameboard from "./Gameboard";
 import Dice from "./Dice";
 import Jail from "./Jail";
+import HomeBase from "./HomeBase"
 
 class Backgammon extends React.Component {
   state = {
@@ -596,11 +597,17 @@ class Backgammon extends React.Component {
           </div>
           <div className="col-2 d-flex flex-column justify-content-between">
             <div>
-              <button disabled={this.state.whosTurn === 2 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-primary btn-block">Blue Base</button>
+              <button style={{height: '10rem'}} disabled={this.state.whosTurn === 2 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-primary btn-block">Blue Base</button>
+            </div>
+            <div>
+              <HomeBase
+                blueBase={this.state.blueBase}
+                redBase={this.state.redBase}
+              />
             </div>
 
             <div>
-              <button disabled={this.state.whosTurn === 1 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-danger justify-content-end btn-block">Red Base</button>
+              <button style={{height: '10rem'}} disabled={this.state.whosTurn === 1 ? true : false} onClick={() => this.handleBase()} className="btn btn-lg btn-danger justify-content-end btn-block">Red Base</button>
             </div>
           </div>
         </div>

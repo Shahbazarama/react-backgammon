@@ -1,5 +1,10 @@
 import React from 'react'
 
+let buttonStyle = {
+  borderRadius: '15px',
+  border: "solid 3px #000000"
+}
+
 export default function Jail({ blueJail, redJail, whosTurn, makeMove }) {
 
   return (
@@ -10,16 +15,16 @@ export default function Jail({ blueJail, redJail, whosTurn, makeMove }) {
             <h4 style={{ color: '#212529' }}><u>Jail</u></h4>
             {[...Array(blueJail)].map(() => {
               return (
-                <button style={{ borderRadius: '15px' }} className="btn btn-lg btn-primary btn-block" disabled={whosTurn === 2 ? true : false} onClick={(e) => makeMove(e, 0)}>
-                  Ω
+                <button style={ buttonStyle } className="btn btn-lg btn-primary" disabled={whosTurn === 2 ? true : false} onClick={(e) => makeMove(e, 0)}>
+                  <br />
                 </button>
               )
             })}
 
             {[...Array(redJail)].map(() => {
               return (
-                <button style={{ borderRadius: '15px' }} className="btn btn-lg btn-danger btn-block" disabled={whosTurn === 1 ? true : false} onClick={(e) => makeMove(e, 0)}>
-                  Ω
+                <button style={ buttonStyle} className="btn btn-lg btn-danger" disabled={whosTurn === 1 ? true : false} onClick={(e) => makeMove(e, 0)}>
+                  <br />
                 </button>
               )
             })}

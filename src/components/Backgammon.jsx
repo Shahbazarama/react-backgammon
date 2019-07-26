@@ -434,7 +434,7 @@ class Backgammon extends React.Component {
 
 
     } else if (this.state.whosTurn === 2) {
-      ///red, moves with decreasing space
+      // red, moves with decreasing space
       let piecesBehindCurrentSpace = false
       this.state.gameState.some(space => {
         if (space.id > currentSpaceID && space.id < 7) {
@@ -486,8 +486,6 @@ class Backgammon extends React.Component {
         this.state.gameState.map(space => {
           if (space.id > 18 && space.color === 1) {
             totalBlueCount += space.count
-          } else {
-            totalBlueCount = totalBlueCount
           }
         })
 
@@ -524,8 +522,6 @@ class Backgammon extends React.Component {
         this.state.gameState.map(space => {
           if (space.id < 7 && space.color === 2) {
             totalRedCount += space.count
-          } else {
-            totalRedCount = totalRedCount
           }
         })
         if (totalRedCount === 15) {

@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6a839e07d819221ec27190742d5ef905",
+    "revision": "5e580cd502fc3f23fdc09568076255be",
     "url": "/react-backgammon/index.html"
   },
   {
-    "revision": "f0e7acc7c32257cd7098",
+    "revision": "a15ae57633eb98e49089",
     "url": "/react-backgammon/static/css/2.fc3aa306.chunk.css"
   },
   {
-    "revision": "0e1a0cf08f6e3cd0a6a6",
+    "revision": "007cfd3042974aab55a2",
     "url": "/react-backgammon/static/css/main.d8b8f783.chunk.css"
   },
   {
-    "revision": "f0e7acc7c32257cd7098",
-    "url": "/react-backgammon/static/js/2.b36ca552.chunk.js"
+    "revision": "a15ae57633eb98e49089",
+    "url": "/react-backgammon/static/js/2.1f0d6735.chunk.js"
   },
   {
-    "revision": "0e1a0cf08f6e3cd0a6a6",
-    "url": "/react-backgammon/static/js/main.c04b4475.chunk.js"
+    "revision": "007cfd3042974aab55a2",
+    "url": "/react-backgammon/static/js/main.6bad9354.chunk.js"
   },
   {
     "revision": "f343d7a9036394b427ca",

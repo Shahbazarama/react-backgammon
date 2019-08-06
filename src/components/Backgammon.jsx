@@ -569,7 +569,7 @@ class Backgammon extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-2">
+          <div className="col-2 d-flex flex-column justify-content-between">
             <Dice
               diceValues={this.state.dice}
               rollDice={this.rollDice}

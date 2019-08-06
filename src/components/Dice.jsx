@@ -22,13 +22,13 @@ export default function Dice({ diceValues, rollDice, whosTurn }) {
       </button>
       {diceArray.map(roll => {
         return (
-          <div style={{ display: 'inline', margin: "5px" }}>
-            {roll == 1 ? <FontAwesomeIcon icon={faDiceOne} size="5x" /> : null}
-            {roll == 2 ? <FontAwesomeIcon icon={faDiceTwo} size="5x" /> : null}
-            {roll == 3 ? <FontAwesomeIcon icon={faDiceThree} size="5x" /> : null}
-            {roll == 4 ? <FontAwesomeIcon icon={faDiceFour} size="5x" /> : null}
-            {roll == 5 ? <FontAwesomeIcon icon={faDiceFive} size="5x" /> : null}
-            {roll == 6 ? <FontAwesomeIcon icon={faDiceSix} size="5x" /> : null}
+          <div style={{ display: 'block', margin: "5px" }}>
+            {roll == 1 ? <FontAwesomeIcon icon={faDiceOne} size="4x" /> : null}
+            {roll == 2 ? <FontAwesomeIcon icon={faDiceTwo} size="4x" /> : null}
+            {roll == 3 ? <FontAwesomeIcon icon={faDiceThree} size="4x" /> : null}
+            {roll == 4 ? <FontAwesomeIcon icon={faDiceFour} size="4x" /> : null}
+            {roll == 5 ? <FontAwesomeIcon icon={faDiceFive} size="4x" /> : null}
+            {roll == 6 ? <FontAwesomeIcon icon={faDiceSix} size="4x" /> : null}
           </div>
         )
       })}
